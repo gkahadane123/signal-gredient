@@ -153,6 +153,12 @@ select.big{width:100%;appearance:none;background:var(--glass-hi);border:1px soli
 .phone .body .r i{width:34px;height:34px;border-radius:9px;background:rgba(22,20,24,.06);flex:none}
 .phone .body .r .t{flex:1}.phone .body .r .t b{display:block;font-size:13px;color:#161418}.phone .body .r .t span{font-size:11px;color:rgba(22,20,24,.5)}
 .phone .body .r em{font-style:normal;font-weight:700;font-size:13px;color:#161418}
+/* design-system duotone icons */
+.ic{display:block;--icon-accent:#FF6666;color:#4D4F5C}
+.gcard .ic{width:48px;height:48px;color:#fff;margin-bottom:14px}
+.feat .f .ic{width:44px;height:44px;color:var(--paper);margin-bottom:10px}
+#v-product .feat .f .ic{color:#4D4F5C}
+.phone .body .r .ic{width:40px;height:40px;color:#4D4F5C;flex:none}
 
 .modal{position:fixed;inset:0;z-index:40;display:none;align-items:center;justify-content:center;background:rgba(10,9,12,.6);backdrop-filter:blur(6px);padding:24px}
 .modal.open{display:flex}
@@ -179,12 +185,43 @@ select.mini{background:var(--glass-hi);border:1px solid var(--glass-line);color:
 <body data-chrome="dark">
 <div id="bg"></div>
 
+<!-- Signal icon library (duotone: currentColor = ink, --icon-accent = coral) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="ic-price" viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+<path d="M64.34 39.25C61.64 39.25 59.44 37.05 59.44 34.35C59.44 31.65 61.64 29.45 64.34 29.45C67.05 29.45 69.25 31.65 69.25 34.35C69.25 37.05 67.05 39.25 64.34 39.25ZM64.34 25.36C59.39 25.36 55.35 29.39 55.35 34.35C55.35 39.31 59.39 43.34 64.34 43.34C69.3 43.34 73.33 39.31 73.33 34.35C73.33 29.39 69.3 25.36 64.34 25.36Z" fill="currentColor" stroke="none"></path>
+<path d="M56.71 5.09C54.8 5.09 53.01 5.83 51.64 7.17L2.12 51.84C0.76 53.18 0 55.01 0 56.96C0 58.91 0.77 60.74 2.16 62.11L33.54 93.95C34.89 95.27 36.69 96 38.6 96C40.5 96 42.3 95.26 43.67 93.92L93.87 46.42C95.21 45.08 96 43.21 96 41.29L96 12.32C96 8.34 92.76 5.09 88.77 5.09L85.57 5.09C84.45 5.09 83.53 6.01 83.53 7.14C83.53 8.26 84.45 9.18 85.57 9.18L88.78 9.18C90.51 9.18 91.91 10.59 91.91 12.32L91.91 41.29C91.91 42.12 91.6 42.89 91.02 43.48L40.87 90.94C40.02 91.8 39.08 91.91 38.6 91.91C38.12 91.91 37.21 91.8 36.43 91.05L5.08 59.25C4.43 58.6 4.11 57.84 4.08 57C4.08 56.5 4.19 55.61 4.93 54.82L54.54 10.05C55.09 9.5 55.88 9.18 56.71 9.18L64.14 9.18C65.27 9.18 66.18 8.26 66.18 7.14C66.18 6.01 65.27 5.09 64.14 5.09L56.71 5.09Z" fill="currentColor" stroke="currentColor" stroke-width="0.08"></path>
+<path d="M71.59 12.89C68.64 15.84 63.86 15.84 60.91 12.89C57.97 9.94 57.97 5.16 60.91 2.21C63.86 -0.73 68.64 -0.73 71.59 2.21C74.54 5.16 74.54 9.94 71.59 12.89Z" fill="var(--icon-accent, #FF6666)" stroke="none"></path>
+</symbol>
+<symbol id="ic-assort" viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<path d="M39.8 35.76C41.81 35.76 43.46 37.41 43.46 39.42C43.46 41.42 41.81 43.08 39.8 43.08C37.79 43.08 36.14 41.42 36.14 39.42C36.14 37.41 37.79 35.76 39.8 35.76Z" fill="var(--icon-accent, #FF6666)" stroke="none"></path>
+<path d="M48.39 35.76C50.39 35.76 52.05 37.41 52.05 39.42C52.05 41.42 50.39 43.08 48.39 43.08C46.37 43.08 44.73 41.42 44.73 39.42C44.73 37.41 46.37 35.76 48.39 35.76Z" fill="var(--icon-accent, #FF6666)" stroke="none"></path>
+<path d="M56.97 35.76C58.98 35.76 60.63 37.41 60.63 39.42C60.63 41.42 58.98 43.08 56.97 43.08C54.95 43.08 53.31 41.42 53.31 39.42C53.31 37.41 54.95 35.76 56.97 35.76Z" fill="var(--icon-accent, #FF6666)" stroke="none"></path>
+<path d="M39.8 44.34C41.81 44.34 43.46 45.98 43.46 48C43.46 50 41.81 51.66 39.8 51.66C37.79 51.66 36.14 50 36.14 48C36.14 45.98 37.79 44.34 39.8 44.34Z" fill="var(--icon-accent, #FF6666)" stroke="none"></path>
+<path d="M48.39 44.34C50.39 44.34 52.05 45.98 52.05 48C52.05 50 50.39 51.66 48.39 51.66C46.37 51.66 44.73 50 44.73 48C44.73 45.98 46.37 44.34 48.39 44.34Z" fill="var(--icon-accent, #FF6666)" stroke="none"></path>
+<path d="M56.97 44.34C58.98 44.34 60.63 45.98 60.63 48C60.63 50 58.98 51.66 56.97 51.66C54.95 51.66 53.31 50 53.31 48C53.31 45.98 54.95 44.34 56.97 44.34Z" fill="var(--icon-accent, #FF6666)" stroke="none"></path>
+<path d="M39.8 52.92C41.81 52.92 43.46 54.56 43.46 56.58C43.46 58.58 41.81 60.24 39.8 60.24C37.79 60.24 36.14 58.58 36.14 56.58C36.14 54.56 37.79 52.92 39.8 52.92Z" fill="var(--icon-accent, #FF6666)" stroke="none"></path>
+<path d="M48.39 52.92C50.39 52.92 52.05 54.56 52.05 56.58C52.05 58.58 50.39 60.24 48.39 60.24C46.37 60.24 44.73 58.58 44.73 56.58C44.73 54.56 46.37 52.92 48.39 52.92Z" fill="var(--icon-accent, #FF6666)" stroke="none"></path>
+<path d="M56.97 52.92C58.98 52.92 60.63 54.56 60.63 56.58C60.63 58.58 58.98 60.24 56.97 60.24C54.95 60.24 53.31 58.58 53.31 56.58C53.31 54.56 54.95 52.92 56.97 52.92Z" fill="var(--icon-accent, #FF6666)" stroke="none"></path>
+<path d="M25.98 31.77L5.84 31.77C2.61 31.77 0 34.38 0 37.6L0 90.16C0 93.39 2.61 96 5.84 96L58.4 96C61.62 96 64.23 93.39 64.23 90.16L64.23 70.02C64.23 66.8 61.62 64.19 58.4 64.19L37.65 64.19C34.43 64.19 31.81 61.57 31.81 58.35L31.81 37.6C31.81 34.38 29.2 31.77 25.98 31.77ZM25.98 34.77C27.54 34.77 28.81 36.04 28.81 37.6L28.81 58.35C28.81 63.22 32.78 67.19 37.65 67.19L58.4 67.19C59.96 67.19 61.23 68.46 61.23 70.02L61.23 90.16C61.23 91.73 59.96 93 58.4 93L5.84 93C4.27 93 3 91.73 3 90.16L3 37.6C3 36.04 4.27 34.77 5.84 34.77L25.98 34.77Z" fill="currentColor" stroke="none"></path>
+<path d="M90.17 0L37.6 0C34.38 0 31.77 2.61 31.77 5.84L31.77 25.98C31.77 29.2 34.38 31.81 37.6 31.81L58.35 31.81C61.57 31.81 64.19 34.43 64.19 37.65L64.19 58.4C64.19 61.62 66.8 64.23 70.02 64.23L90.17 64.23C93.39 64.23 96 61.62 96 58.4L96 5.84C96 2.61 93.39 0 90.17 0ZM90.17 3C91.73 3 93 4.27 93 5.84L93 58.4C93 59.96 91.73 61.23 90.17 61.23L70.02 61.23C68.46 61.23 67.19 59.96 67.19 58.4L67.19 37.65C67.19 32.78 63.22 28.81 58.35 28.81L37.6 28.81C36.04 28.81 34.77 27.54 34.77 25.98L34.77 5.84C34.77 4.27 36.04 3 37.6 3L90.17 3Z" fill="currentColor" stroke="none"></path>
+</symbol>
+<symbol id="ic-avail" viewBox="0 0 96 96" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<path d="M94.38 49.5L85.49 49.5L85.49 46.5L94.38 46.5L94.38 49.5Z" fill="var(--icon-accent, #FF6666)" stroke="var(--icon-accent, #FF6666)" stroke-width="0.75"></path>
+<path d="M45.61 10.12L48.61 10.12L48.61 0.92L45.61 0.92L45.61 10.12Z" fill="var(--icon-accent, #FF6666)" stroke="var(--icon-accent, #FF6666)" stroke-width="0.73"></path>
+<path d="M48.61 93.5L45.61 93.5L45.61 84.31L48.61 84.31L48.61 93.5Z" fill="var(--icon-accent, #FF6666)" stroke="var(--icon-accent, #FF6666)" stroke-width="0.73"></path>
+<path d="M0.62 48.91L9.82 48.91L9.82 45.91L0.62 45.91L0.62 48.91Z" fill="var(--icon-accent, #FF6666)" stroke="var(--icon-accent, #FF6666)" stroke-width="0.73"></path>
+<path d="M48 3.01C23.2 3.01 3.01 23.2 3.01 48C3.01 72.8 23.2 92.99 48 92.99C72.8 92.99 92.99 72.8 92.99 48C92.99 23.2 72.8 3.01 48 3.01ZM48 95.99C21.54 95.99 0.01 74.46 0.01 48C0.01 21.54 21.54 0.01 48 0.01C74.46 0.01 95.99 21.54 95.99 48C95.99 74.46 74.46 95.99 48 95.99Z" fill="currentColor" stroke="none"></path>
+<path d="M47.93 37C54 37 58.93 41.93 58.93 48C58.93 54.07 54 59 47.93 59C41.86 59 36.93 54.07 36.93 48C36.93 41.93 41.86 37 47.93 37Z" fill="var(--icon-accent, #FF6666)" stroke="none"></path>
+<path d="M48.02 52.96L26.8 31.24L28.95 29.14L47.99 48.64L93.4 0.96L95.57 3.04L48.02 52.96Z" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"></path>
+</symbol>
+</defs></svg>
+
 <div class="stage">
   <div class="view on" id="v-full"><div class="wm">SIGNAL</div><div class="tl">Retail intelligence · in real time</div></div>
   <div class="view" id="v-cards">
-    <div class="gcard"><i></i><h3>Pricing</h3><p>Competitive price monitoring across every channel and market.</p></div>
-    <div class="gcard"><i></i><h3>Assortment</h3><p>Track catalog breadth and gaps against the competitive set.</p></div>
-    <div class="gcard"><i></i><h3>Availability</h3><p>Real-time in-stock signals down to the variant level.</p></div>
+    <div class="gcard"><svg class="ic"><use href="#ic-price"/></svg><h3>Pricing</h3><p>Competitive price monitoring across every channel and market.</p></div>
+    <div class="gcard"><svg class="ic"><use href="#ic-assort"/></svg><h3>Assortment</h3><p>Track catalog breadth and gaps against the competitive set.</p></div>
+    <div class="gcard"><svg class="ic"><use href="#ic-avail"/></svg><h3>Availability</h3><p>Real-time in-stock signals down to the variant level.</p></div>
   </div>
   <div class="view" id="v-web"><div class="win">
     <div class="bar"><i></i><i></i><i></i><span class="addr">signal.intelligencenode.com</span></div>
@@ -196,17 +233,17 @@ select.mini{background:var(--glass-hi);border:1px solid var(--glass-line);color:
       <div class="btns"><span class="p1">Get started</span><span class="p2">Explore platform</span></div>
     </div>
     <div class="feat">
-      <div class="f"><i></i><h3>Pricing intelligence</h3><p>Monitor competitor pricing across markets and channels.</p></div>
-      <div class="f"><i></i><h3>Assortment analytics</h3><p>See catalog gaps and breadth against your set.</p></div>
-      <div class="f"><i></i><h3>Availability signals</h3><p>Live in-stock tracking to the variant level.</p></div>
+      <div class="f"><svg class="ic"><use href="#ic-price"/></svg><h3>Pricing intelligence</h3><p>Monitor competitor pricing across markets and channels.</p></div>
+      <div class="f"><svg class="ic"><use href="#ic-assort"/></svg><h3>Assortment analytics</h3><p>See catalog gaps and breadth against your set.</p></div>
+      <div class="f"><svg class="ic"><use href="#ic-avail"/></svg><h3>Availability signals</h3><p>Live in-stock tracking to the variant level.</p></div>
     </div>
   </div></div>
   <div class="view" id="v-mobile"><div class="phone"><div class="scr"><div class="notch"></div>
     <div class="top gradient-surface" id="mobTop"><div class="e">Signal</div><h2>Every price,<br>in real time.</h2></div>
     <div class="body">
-      <div class="r"><i></i><div class="t"><b>Pricing</b><span>Competitive monitoring</span></div><em>Live</em></div>
-      <div class="r"><i></i><div class="t"><b>Assortment</b><span>Catalog coverage</span></div><em>Live</em></div>
-      <div class="r"><i></i><div class="t"><b>Availability</b><span>Stock signals</span></div><em>Live</em></div>
+      <div class="r"><svg class="ic"><use href="#ic-price"/></svg><div class="t"><b>Pricing</b><span>Competitive monitoring</span></div><em>Live</em></div>
+      <div class="r"><svg class="ic"><use href="#ic-assort"/></svg><div class="t"><b>Assortment</b><span>Catalog coverage</span></div><em>Live</em></div>
+      <div class="r"><svg class="ic"><use href="#ic-avail"/></svg><div class="t"><b>Availability</b><span>Stock signals</span></div><em>Live</em></div>
     </div>
   </div></div></div>
   <div class="view" id="v-product"><div class="win" style="max-width:860px">
@@ -216,9 +253,9 @@ select.mini{background:var(--glass-hi);border:1px solid var(--glass-line);color:
       <h2 style="font-size:30px;margin:8px 0 0">Competitive overview</h2>
     </div>
     <div class="feat" style="background:var(--paper);padding:24px 34px">
-      <div class="f"><i style="background:var(--coral)"></i><h3 style="color:#161418">Pricing index</h3><p style="color:rgba(22,20,24,.5)">Tracked across the competitive set.</p></div>
-      <div class="f"><i style="background:#3DE0C8"></i><h3 style="color:#161418">Assortment</h3><p style="color:rgba(22,20,24,.5)">Coverage & gap analysis.</p></div>
-      <div class="f"><i style="background:#4B77FF"></i><h3 style="color:#161418">Availability</h3><p style="color:rgba(22,20,24,.5)">Real-time stock signals.</p></div>
+      <div class="f"><svg class="ic"><use href="#ic-price"/></svg><h3 style="color:#161418">Pricing index</h3><p style="color:rgba(22,20,24,.5)">Tracked across the competitive set.</p></div>
+      <div class="f"><svg class="ic"><use href="#ic-assort"/></svg><h3 style="color:#161418">Assortment</h3><p style="color:rgba(22,20,24,.5)">Coverage & gap analysis.</p></div>
+      <div class="f"><svg class="ic"><use href="#ic-avail"/></svg><h3 style="color:#161418">Availability</h3><p style="color:rgba(22,20,24,.5)">Real-time stock signals.</p></div>
     </div>
   </div></div>
 </div>
