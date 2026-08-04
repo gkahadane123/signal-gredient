@@ -4,13 +4,22 @@ On-brand gradient generators for the **Signal Design System** (Intelligence Node
 
 All output is constrained to the Signal system: the legal **extended gradient hues** (which are legal *only* inside gradients), the palette base tones, and the mandatory `feTurbulence` grain at `soft-light`.
 
+## 🔗 Live link
+
+**▶ Open the studio: https://gkahadane123.github.io/signal-gredient/**
+
+Post that link anywhere — it opens the gradient studio in the browser, no install needed. *(Served via GitHub Pages from the `main` branch.)*
+
+Instant CDN mirror (works even before Pages finishes building):
+`https://raw.githack.com/gkahadane123/signal-gredient/main/index.html`
+
 ## Tools
 
-| File | What it is |
-| --- | --- |
-| [`signal-gradient.html`](signal-gradient.html) | **Main tool.** Static design-system gradient in a full-bleed studio UI — view switcher (Full bleed / Cards / Website / Mobile / Product), Edit drawer with a per-bloom layer editor, and a *Get the code* modal that exports the exact `sig-grad-*` CSS or rasterizes a PNG (up to 4K) via SVG. |
-| [`index.html`](index.html) | Minimal static generator — a side-by-side layout for quickly composing blooms and copying the exact system CSS. |
-| [`animated.html`](animated.html) | Animated WebGL variant (Neat-style live gradient). Kept for reference. |
+| File | Live | What it is |
+| --- | --- | --- |
+| [`index.html`](index.html) | [open](https://gkahadane123.github.io/signal-gredient/) | **Main studio.** Static design-system gradient in a full-bleed UI — view switcher (Full bleed / Cards / Website / Mobile / Product), Edit drawer with a per-bloom layer editor, and a *Get the code* modal that exports the exact `sig-grad-*` CSS or rasterizes a PNG (up to 4K) via SVG. |
+| [`minimal.html`](minimal.html) | [open](https://gkahadane123.github.io/signal-gredient/minimal.html) | Minimal static generator — a side-by-side layout for quickly composing blooms and copying the exact system CSS. |
+| [`animated.html`](animated.html) | [open](https://gkahadane123.github.io/signal-gredient/animated.html) | Animated WebGL variant (Neat-style live gradient). Kept for reference. |
 
 ## Gradient model
 
@@ -32,7 +41,7 @@ The six coded presets (Ember, Depth, Current, Bloom, Glow, Night) reproduce the 
 
 ## Usage
 
-1. Open a tool in a browser.
+1. Open the [live link](https://gkahadane123.github.io/signal-gredient/) (or any file in a browser).
 2. Pick a preset, tune the blooms.
 3. **Get the code** → copy the CSS (drop the class on any full-width section) or export a PNG for slides / section backgrounds.
 
