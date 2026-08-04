@@ -51,6 +51,7 @@ body.hideui .chrome{opacity:0;pointer-events:none}
 .tb-btn{border:0;background:none;color:var(--txt-dim);cursor:pointer;padding:8px 12px;border-radius:999px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px}
 .tb-btn:hover{color:var(--txt);background:var(--glass-hi)}.tb-btn svg{width:16px;height:16px}
 .tb-btn.solid{background:#fff;color:#161418}[data-chrome="light"] .tb-btn.solid{background:var(--ink);color:var(--paper)}
+.tb-btn.primary{background:var(--coral);color:#fff}.tb-btn.primary:hover{background:var(--coral);color:#fff}
 
 .credit{bottom:18px;left:18px;font-size:11px;color:var(--txt-dim);font-weight:600;display:flex;gap:10px;align-items:center}
 .credit .dot{width:9px;height:9px;border-radius:50%;background:var(--coral)}
@@ -64,8 +65,7 @@ body.hideui .chrome{opacity:0;pointer-events:none}
 .drawer .dhead h1{font-size:15px;font-weight:700;letter-spacing:-.01em}
 .drawer .dbody{overflow-y:auto;flex:1;padding:6px 18px 18px}
 .drawer .dfoot{padding:14px 18px;border-top:1px solid var(--glass-line)}
-.getcode{width:100%;border:0;border-radius:12px;background:#fff;color:#161418;font-weight:700;font-size:14px;padding:13px;cursor:pointer}
-[data-chrome="light"] .getcode{background:var(--ink);color:var(--paper)}
+.getcode{width:100%;border:0;border-radius:12px;background:var(--coral);color:#fff;font-weight:700;font-size:14px;padding:13px;cursor:pointer}
 
 .sec{padding:18px 0;border-bottom:1px solid var(--glass-line)}.sec:last-child{border-bottom:0}
 .sec .st{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--txt)}
@@ -278,8 +278,7 @@ select.mini{background:var(--glass-hi);border:1px solid var(--glass-line);color:
   <span class="tb-div"></span>
   <button class="tb-btn solid" id="editBtn">Edit</button>
   <button class="tb-btn" id="shuffleBtn" title="Shuffle bloom hues"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16M17 4h3v3M4 17v3h3M20 4l-5 5M4 20l5-5"/></svg></button>
-  <button class="tb-btn" id="codeBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3"/></svg>Code</button>
-  <button class="tb-btn" id="pngBtn2" title="Export PNG"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><circle cx="12" cy="13.5" r="3.5"/><path d="M8 7l1.5-3h5L16 7"/></svg></button>
+  <button class="tb-btn primary" id="exportBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 15l-5-5L7 19"/></svg>Export image</button>
   <button class="tb-btn" id="hideBtn" title="Hide UI"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M3 3l18 18"/></svg></button>
 </div></div>
 
@@ -288,12 +287,12 @@ select.mini{background:var(--glass-hi);border:1px solid var(--glass-line);color:
 <aside class="drawer" id="drawer">
   <div class="dhead"><button class="back" id="drawerBack"><svg viewBox="0 0 24 24" width="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button><h1>Edit gradient</h1></div>
   <div class="dbody" id="drawerBody"></div>
-  <div class="dfoot"><button class="getcode" id="getCode">Get the code</button></div>
+  <div class="dfoot"><button class="getcode" id="getCode">Export image</button></div>
 </aside>
 
 <div class="modal" id="modal"><div class="sheet">
-  <div class="sh"><h2>Get the code</h2><button class="close" id="modalClose">✕</button></div>
-  <div class="tabs"><button class="on" data-tab="css">CSS</button><button data-tab="png">PNG</button></div>
+  <div class="sh"><h2>Export image</h2><button class="close" id="modalClose">✕</button></div>
+  <div class="tabs"><button class="on" data-tab="png">Image (PNG)</button><button data-tab="css">CSS</button></div>
   <div class="sc" id="modalBody"></div>
 </div></div>
 <div class="toast" id="toast"></div>
@@ -473,7 +472,7 @@ function exportPng(W,H){
   img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);
 }
 var incGrain=true;
-function openModal(tab){document.getElementById('modal').classList.add('open');showTab(tab||'css');}
+function openModal(tab){document.getElementById('modal').classList.add('open');showTab(tab||'png');}
 function showTab(tab){[].forEach.call(document.querySelectorAll('.sheet .tabs button'),function(b){b.classList.toggle('on',b.dataset.tab===tab);});
   var body=document.getElementById('modalBody');
   if(tab==='css'){
@@ -489,9 +488,8 @@ function showTab(tab){[].forEach.call(document.querySelectorAll('.sheet .tabs bu
   }
 }
 document.querySelector('.sheet .tabs').onclick=function(e){if(e.target.dataset.tab)showTab(e.target.dataset.tab);};
-document.getElementById('codeBtn').onclick=function(){openModal('css');};
-document.getElementById('getCode').onclick=function(){openModal('css');};
-document.getElementById('pngBtn2').onclick=function(){openModal('png');};
+document.getElementById('exportBtn').onclick=function(){openModal('png');};
+document.getElementById('getCode').onclick=function(){openModal('png');};
 document.getElementById('modalClose').onclick=function(){document.getElementById('modal').classList.remove('open');};
 document.getElementById('modal').onclick=function(e){if(e.target===this)this.classList.remove('open');};
 
