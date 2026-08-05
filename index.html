@@ -177,6 +177,7 @@ pre.code{background:rgba(0,0,0,.35);border:1px solid var(--glass-line);border-ra
 .mbtn{border:0;border-radius:999px;padding:10px 16px;font-weight:600;font-size:13px;cursor:pointer;background:var(--glass-hi);color:var(--txt);border:1px solid var(--glass-line)}
 .mbtn.primary{background:var(--coral);color:#fff;border-color:var(--coral)}
 select.mini{background:var(--glass-hi);border:1px solid var(--glass-line);color:var(--txt);border-radius:999px;padding:9px 12px;font-weight:600;font-size:12px}
+.dimin{width:92px;background:var(--glass-hi);border:1px solid var(--glass-line);color:var(--txt);border-radius:999px;padding:9px 12px;font-weight:600;font-size:12px;font-family:inherit}
 .mtog{display:inline-flex;align-items:center;gap:7px;color:var(--txt-dim);font-size:11.5px;font-weight:600}.mtog input{accent-color:var(--coral)}
 .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#161418;color:#fff;padding:11px 20px;border-radius:999px;font-size:13px;font-weight:600;box-shadow:0 20px 50px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .24s,transform .24s;z-index:60}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -464,12 +465,28 @@ function svgFor(W,H){
   return '<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'"><defs>'+defs+'</defs>'+
     '<rect width="'+W+'" height="'+H+'" fill="'+state.base+'"/>'+body+grain+'</svg>';
 }
-function exportPng(W,H){
+function renderBlob(W,H){return new Promise(function(res,rej){
   var svg=svgFor(W,H);var img=new Image();
-  img.onload=function(){var c=document.createElement('canvas');c.width=W;c.height=H;var ctx=c.getContext('2d');
-    ctx.drawImage(img,0,0,W,H);c.toBlob(function(b){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=className+"-"+W+"x"+H+".png";a.click();toast("Exported "+W+"×"+H+" PNG");},"image/png");};
-  img.onerror=function(){toast("PNG export failed in this browser");};
+  img.onload=function(){var c=document.createElement('canvas');c.width=W;c.height=H;
+    c.getContext('2d').drawImage(img,0,0,W,H);c.toBlob(function(b){b?res(b):rej(new Error("toBlob failed"));},"image/png");};
+  img.onerror=function(){rej(new Error("svg load failed"));};
   img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);
+});}
+function exportPng(W,H){
+  renderBlob(W,H).then(function(b){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=className+"-"+W+"x"+H+".png";a.click();toast("Exported "+W+"×"+H+" PNG");},
+    function(){toast("PNG export failed in this browser");});
+}
+function copyImage(W,H){
+  if(!(navigator.clipboard&&navigator.clipboard.write&&window.ClipboardItem)){toast("Clipboard image not supported — use Export PNG");return;}
+  toast("Copying "+W+"×"+H+"…");
+  try{
+    navigator.clipboard.write([new ClipboardItem({"image/png":renderBlob(W,H)})])
+      .then(function(){toast("Image copied to clipboard");},
+            function(){toast("Copy blocked — use Export PNG");});
+  }catch(e){
+    renderBlob(W,H).then(function(b){return navigator.clipboard.write([new ClipboardItem({"image/png":b})]);})
+      .then(function(){toast("Image copied to clipboard");},function(){toast("Copy blocked — use Export PNG");});
+  }
 }
 var incGrain=true;
 function openModal(tab){document.getElementById('modal').classList.add('open');showTab(tab||'png');}
@@ -483,8 +500,22 @@ function showTab(tab){[].forEach.call(document.querySelectorAll('.sheet .tabs bu
     document.getElementById('cpCss').onclick=function(){navigator.clipboard.writeText(buildCss(document.getElementById('ig').checked)).then(function(){toast("CSS copied");});};
     document.getElementById('dlCss').onclick=function(){var b=new Blob([buildCss(document.getElementById('ig').checked)],{type:"text/css"});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=className+".css";a.click();toast("Downloaded");};
   }else{
-    body.innerHTML='<p style="color:var(--txt-dim);font-size:13px;line-height:1.6;margin:0 0 14px">Rasterise the current gradient to PNG for slide or section backgrounds.</p><div class="row"><select class="mini" id="ps"><option>1920x1080</option><option>2560x1440</option><option>1080x1080</option><option>1080x1350</option><option>2400x1260</option><option>3840x2160</option></select><button class="mbtn primary" id="doP">Export PNG</button></div>';
-    document.getElementById('doP').onclick=function(){var d=document.getElementById('ps').value.split('x');exportPng(+d[0],+d[1]);};
+    body.innerHTML='<p style="color:var(--txt-dim);font-size:13px;line-height:1.6;margin:0 0 14px">Rasterise the current gradient for slide or section backgrounds — download a PNG or copy it straight to your clipboard.</p>'
+      +'<div class="row"><select class="mini" id="ps">'
+      +'<option value="1920x1080">1920 × 1080 (16:9)</option>'
+      +'<option value="2560x1440">2560 × 1440 (16:9 @2x)</option>'
+      +'<option value="1080x1080">1080 × 1080 (square)</option>'
+      +'<option value="1080x1350">1080 × 1350 (4:5)</option>'
+      +'<option value="2400x1260">2400 × 1260 (deck)</option>'
+      +'<option value="3840x2160">3840 × 2160 (4K)</option>'
+      +'<option value="custom">Custom…</option></select></div>'
+      +'<div class="row" id="customRow" style="display:none"><input class="dimin" id="cw" type="number" min="16" max="8000" value="1600" aria-label="Width"><span style="color:var(--txt-faint)">×</span><input class="dimin" id="ch" type="number" min="16" max="8000" value="900" aria-label="Height"><span style="color:var(--txt-faint);font-size:11.5px">px</span></div>'
+      +'<div class="row"><button class="mbtn primary" id="doP">Export PNG</button><button class="mbtn" id="doCopy">Copy image</button></div>';
+    var ps=document.getElementById('ps'),cr=document.getElementById('customRow');
+    ps.onchange=function(){cr.style.display=ps.value==='custom'?'flex':'none';};
+    function dims(){if(ps.value==='custom'){var w=Math.max(16,Math.min(8000,parseInt(document.getElementById('cw').value,10)||1600));var h=Math.max(16,Math.min(8000,parseInt(document.getElementById('ch').value,10)||900));return [w,h];}var d=ps.value.split('x');return [+d[0],+d[1]];}
+    document.getElementById('doP').onclick=function(){var d=dims();exportPng(d[0],d[1]);};
+    document.getElementById('doCopy').onclick=function(){var d=dims();copyImage(d[0],d[1]);};
   }
 }
 document.querySelector('.sheet .tabs').onclick=function(e){if(e.target.dataset.tab)showTab(e.target.dataset.tab);};
